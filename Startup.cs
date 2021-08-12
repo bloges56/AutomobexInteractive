@@ -28,6 +28,8 @@ namespace RISE_Demo
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ISurveyQuestionRepository, SurveyQuestionRepository>();
+            services.AddTransient<IUserSurveyRepository, UserSurveyRepository>();
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore); ;
         }
@@ -52,6 +54,12 @@ namespace RISE_Demo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+           );
 
             app.UseEndpoints(endpoints =>
             {

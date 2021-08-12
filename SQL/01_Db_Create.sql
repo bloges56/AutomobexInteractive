@@ -8,18 +8,18 @@ USE [RISE]
 GO
 
 DROP TABLE IF EXISTS [UserEvent];
+DROP TABLE IF EXISTS [UserSurvey];
 DROP TABLE IF EXISTS [Coffee];
 DROP TABLE IF EXISTS [Event];
-DROP TABLE IF EXISTS [Survey];
-DROP TABLE IF EXISTS [Question];
 DROP TABLE IF EXISTS [SurveyQuestion];
 DROP TABLE IF EXISTS [Answer];
+DROP TABLE IF EXISTS [Survey];
+DROP TABLE IF EXISTS [Question];
 DROP TABLE IF EXISTS [User];
 
 
 
 GO
-
 
 CREATE TABLE [User] (
   [Id] integer PRIMARY KEY IDENTITY,
@@ -37,7 +37,7 @@ CREATE TABLE [Event] (
 	[Id] integer PRIMARY KEY IDENTITY,
 	[Title] nvarchar(50) NOT NULL,
 	[Time] datetime NOT NULL,
-	[Link] nvarchar(50),
+	[Link] nvarchar(555),
 	[Address] nvarchar(50),
 	[OwnerId] integer NOT NULL,
 	[IsApproved] bit NOT NULL DEFAULT 0,
@@ -58,8 +58,6 @@ CREATE TABLE [UserEvent] (
 
 CREATE TABLE [Coffee] (
 	[Id] integer PRIMARY KEY IDENTITY,
-	[Time] datetime NOT NULL,
-	[Link] nvarchar(50),
 	[UserId] integer NOT NULL,
 	[OtherId] integer NOT NULL
 
@@ -69,14 +67,14 @@ CREATE TABLE [Coffee] (
 
 CREATE TABLE [Survey] (
 	[Id] integer PRIMARY KEY IDENTITY,
-	[Title] nvarchar(20) NOT NULL,
+	[Title] nvarchar(50) NOT NULL,
 	[EndDate] datetime NOT NULL,
 	[IsOpen] bit NOT NULL DEFAULT 1
 )
 
 CREATE TABLE [Question] (
  [Id] integer PRIMARY KEY IDENTITY,
- [QuestionText] nvarchar(50) NOT NULL
+ [QuestionText] nvarchar(200) NOT NULL
 )
 
 CREATE TABLE [SurveyQuestion] (
@@ -86,6 +84,17 @@ CREATE TABLE [SurveyQuestion] (
 
 	CONSTRAINT [FK_SurveyQuestion_Survey] FOREIGN KEY ([SurveyId]) REFERENCES [Survey] ([Id]),
 	CONSTRAINT [FK_SurveyQuestion_Question] FOREIGN KEY ([QuestionId]) REFERENCES [Question] ([Id])
+)
+
+CREATE TABLE [UserSurvey] (
+	[Id] integer PRIMARY KEY IDENTITY,
+	[UserId] integer NOT NULL,
+	[SurveyId] integer NOT NULL,
+	[IsCompleted] integer NOT NULL
+
+
+	CONSTRAINT [FK_UserSurvey_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id]),
+	CONSTRAINT [FK_UserSurvey_Survey] FOREIGN KEY ([SurveyId]) REFERENCES [Survey] ([Id])
 )
 
 CREATE TABLE [Answer] (
@@ -102,7 +111,6 @@ CREATE TABLE [Answer] (
 )
 
 GO
-
 --set identity_insert [User] on
 --insert into [User] ([Id], [FirebaseUserId], [UserName], [Email], [Bio], [ImageUrl], [IsActive])
 --values (1,'placeholder1', 'goldenGod', 'dennis@menace.com', 'Its about the implication', 'https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg', 1), 
