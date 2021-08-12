@@ -25,7 +25,7 @@ namespace RISE_Demo.Repositories
                 .Where(us => us.SurveyId == surveyId && us.IsCompleted == 1)
                 .Count();
 
-            return (completed / total) * 100;
+            return (completed / total);
         }
     }
 }
