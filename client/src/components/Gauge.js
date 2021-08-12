@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect }from "react"
 import { UserSurveyContext } from "../providers/UserSurveyProvider"
+import GaugeChart from 'react-gauge-chart'
 
 export const Gauge = () => {
 
@@ -12,7 +13,9 @@ export const Gauge = () => {
     console.log(engagement)
 
     return (
-        <>
-        </>
+        <GaugeChart
+        nrOfLevels={30}
+        percent={engagement}
+        />
     )
 }
