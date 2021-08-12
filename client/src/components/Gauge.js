@@ -16,6 +16,7 @@ export const Gauge = () => {
             <GaugeChart
             nrOfLevels={30}
             percent={engagement}
+            colors={["#F54242","#ffff00","#00ff00"]}
             />    
     )
 }

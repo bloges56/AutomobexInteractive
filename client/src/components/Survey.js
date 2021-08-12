@@ -15,6 +15,6 @@ export const Survey = () => {
     }
 
     return (
-        <Button onClick={confirmSurvey}> Take Survey</Button>
+        <Button className="surveyButton" onClick={confirmSurvey}> Take Survey</Button>
     )
 }
