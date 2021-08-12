@@ -16,10 +16,21 @@ export const UserSurveyProvider = (props) => {
         .then(setEngagement) 
   };
 
+  const updateUserSurvey = (userSurvey) => {
+      return fetch(`https://localhost:5001/api/usersurvey/update`, {
+          method: 'PUT',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(userSurvey)
+      }).then(() => {getEngagement(1)})
+  }
+
   return (
       <UserSurveyContext.Provider value ={{
           engagement,
-          getEngagement
+          getEngagement,
+          updateUserSurvey
       }}>
           {props.children}
       </UserSurveyContext.Provider>
