@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RISE_Demo.Models;
 using RISE_Demo.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,13 @@ namespace RISE_Demo.Controllers
         public IActionResult Get(int id)
         {
             return Ok(_userSurveyRepository.GetSurveyEngagement(id));
+        }
+
+        [HttpPut("update")]
+        public IActionResult Update(UserSurvey userSurvey)
+        {
+            _userSurveyRepository.Update(userSurvey);
+            return NoContent();
         }
     }
 }
