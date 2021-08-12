@@ -11,10 +11,6 @@ namespace RISE_Demo.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(28)]
-        public string FirebaseUserId { get; set; }
-
-        [Required]
         [MaxLength(20)]
         public string UserName { get; set; }
 
