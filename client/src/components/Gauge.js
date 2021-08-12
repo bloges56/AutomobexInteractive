@@ -13,9 +13,9 @@ export const Gauge = () => {
     console.log(engagement)
 
     return (
-        <GaugeChart
-        nrOfLevels={30}
-        percent={engagement}
-        />
+            <GaugeChart
+            nrOfLevels={30}
+            percent={engagement}
+            />    
     )
 }
