@@ -55,6 +55,12 @@ namespace RISE_Demo
 
             app.UseAuthorization();
 
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+           );
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
